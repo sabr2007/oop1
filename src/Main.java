@@ -1,29 +1,58 @@
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Product p1 = new Product("milk", 500, 1);
-        Product p2 = new Product("bread", 200, 2);
-        Product p3 = new Product("milk", 1000, 3);
-        System.out.println(p1);
+        Scanner sc = new Scanner(System.in);
 
-        Supplier s1 = new Supplier("Megapostavvki", "8 965 346 97 00", "NovoKazakhstan");
+        Inventory inv = new Inventory("Astana", "Beka");
 
+        Supplier s1 = new Supplier(1, "Megapostavvki", "8 965 346 97 00", "NovoKazakhstan");
         System.out.println(s1);
 
-        Inventory i1 = new Inventory("Astana", "Beka");
-        System.out.println(i1);
+        while (true) {
+            System.out.println("INVENTORY MENU ");
+            System.out.println("1 Add product");
+            System.out.println("2 List all products");
 
-        p1.setPrice(600);
-        System.out.println(p1.getPrice());
+            System.out.print("Choose: ");
 
-        System.out.println(p1 == p2); // сравниваю ссылки на обьект
+            int choice = Integer.parseInt(sc.nextLine());
 
-        System.out.println(p1.getName().equals(p2.getName())); // сравниваю значения конкретных полей
-        System.out.println(p1.getName().equals(p3.getName()));
-        System.out.println(p1.getPrice() == p2.getPrice());
+            if(choice == 0){
+                break;
+            }
 
-        System.out.println(i1.getLocation() + "\n" + i1.getManager());
-        
+            if (choice == 1) {
+                System.out.print("Enter product id: ");
+                int id = Integer.parseInt(sc.nextLine());
+
+                System.out.print("Enter product name: ");
+                String name = sc.nextLine();
+
+                System.out.print("Enter product price: ");
+                double price = Double.parseDouble(sc.nextLine());
+
+                Product p = new Product(name, price, id);
+                inv.addProduct(p);
+
+                System.out.println("Added: " + p);
+            }
+
+            if (choice == 2) {
+                System.out.println("ALL PRODUCTS");
+                inv.printAllProducts();
+            }
+        }
+        sc.close();
+        inv.searchByName("milk");
+
+        inv.filterByMaxPrice(600);
+
+        inv.sortByPriceAsc();
+        inv.printAllProducts();
+
+        BaseEntity entity = s1;
+        System.out.println(entity.shortInfo());
     }
 }
