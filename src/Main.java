@@ -1,58 +1,54 @@
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
 
         Inventory inv = new Inventory("Astana", "Beka");
 
-        Supplier s1 = new Supplier(1, "Megapostavvki", "8 965 346 97 00", "NovoKazakhstan");
-        System.out.println(s1);
+        Product p1 = new Product("milk", 300, 1);
+        Product p2 = new Product("bread", 200, 2);
+        Product p3 = new Product("cheese", 700, 3);
+        Product p4 = new Product("sour cream", 400, 4);
+        Product p5 = new Product("chocolate", 900, 1);
+        inv.addProduct(p1);
+        inv.addProduct(p2);
+        inv.addProduct(p3);
+        inv.addProduct(p4);
+        inv.addProduct(p5);
 
-        while (true) {
-            System.out.println("INVENTORY MENU ");
-            System.out.println("1 Add product");
-            System.out.println("2 List all products");
+        System.out.println(p1.shortInfo());
+        System.out.println(p1.equals(p5)); //используя переписанный equals сравниваю айдишки
 
-            System.out.print("Choose: ");
+        Supplier s1 = new Supplier("Postavki Bistro", "87756329600", "Kazakhstan", 1);
+        System.out.println(s1.shortInfo());
 
-            int choice = Integer.parseInt(sc.nextLine());
 
-            if(choice == 0){
+        while(true) {
+            System.out.println("-----------------------------------");
+            System.out.println("press 1 to show all products");
+            System.out.println("press 2 to sort all products by price");
+            System.out.println("press 3 to search product");
+            System.out.println("press 0 to exit");
+            System.out.println("-----------------------------------");
+
+            int choice = sc.nextInt();
+            if(choice == 0)
                 break;
+            if(choice == 1)
+                inv.allProduct();
+            if(choice == 2){
+                inv.sortProduct();
+                inv.allProduct();
             }
-
-            if (choice == 1) {
-                System.out.print("Enter product id: ");
-                int id = Integer.parseInt(sc.nextLine());
-
-                System.out.print("Enter product name: ");
-                String name = sc.nextLine();
-
-                System.out.print("Enter product price: ");
-                double price = Double.parseDouble(sc.nextLine());
-
-                Product p = new Product(name, price, id);
-                inv.addProduct(p);
-
-                System.out.println("Added: " + p);
-            }
-
-            if (choice == 2) {
-                System.out.println("ALL PRODUCTS");
-                inv.printAllProducts();
+            if(choice == 3){
+                System.out.println("enter the name for product");
+                sc.nextLine();
+                String prod = sc.nextLine();
+                inv.searchProduct(prod);
             }
         }
         sc.close();
-        inv.searchByName("milk");
 
-        inv.filterByMaxPrice(600);
 
-        inv.sortByPriceAsc();
-        inv.printAllProducts();
-
-        BaseEntity entity = s1;
-        System.out.println(entity.shortInfo());
     }
 }

@@ -1,13 +1,15 @@
-public class Product extends BaseEntity {
+public class Product extends AbstractItem {
 
     private String name;
     private double price;
 
-    public Product(String name, double price, int id){
-        super(id);              // передаём id в BaseEntity
+
+    public Product(String name, double price, int id) {
+        super(id);
         this.name = name;
         this.price = price;
     }
+
 
     public String getName(){
         return name;
@@ -23,19 +25,21 @@ public class Product extends BaseEntity {
             this.price = price;
         }
     }
-
     public void setName(String name){
-        this.name = name;
+        if(name != null){
+            this.name = name;
+        } else {
+            System.out.println("name have to be not null");
+        }
     }
+
 
     @Override
     public String toString() {
-        return "Product: " + name + " Price: " + price + " id: " + getId();
+        return "Product: " + name + ", Price: " + price + ", id: " + getId();
     }
-
     @Override
     public String shortInfo() {
         return "Product: " + name + ", price=" + price;
     }
 }
-

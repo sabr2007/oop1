@@ -1,45 +1,54 @@
-public class Supplier extends BaseEntity {
-
+public class Supplier extends AbstractItem {
 
     private String companyName;
-    private String phone;
-    private String country;
+    private String companyPhone;
+    private String companyCountry;
 
-    public Supplier(int id, String companyName, String phone, String country){
+    public Supplier(String companyName, String companyPhone, String companyCountry, int id){
         super(id);
         this.companyName = companyName;
-        this.phone = phone;
-        this.country = country;
+        this.companyPhone = companyPhone;
+        this.companyCountry = companyCountry;
     }
 
 
     public String getCompanyName(){
         return companyName;
     }
-    public String getPhone(){
-        return phone;
+    public String getCompanyPhone(){
+        return companyPhone;
     }
-    public String getCountry(){
-        return country;
+    public String getCompanyCountry(){
+        return companyCountry;
     }
 
-    public void setCompanyName(String companyName){
-        this.companyName = companyName;
+
+    public void setCompanyName(String companyName) {
+        if (companyName != null)
+            this.companyName = companyName;
+        else
+            System.out.println("company name cannot be null");
     }
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCompanyPhone(String companyPhone) {
+        if (companyPhone != null)
+            this.companyPhone = companyPhone;
+        else
+            System.out.println("company phone cannot be null");
     }
-    public void setPhone(String phone){
-        this.phone = phone;
+    public void setCompanyCountry(String companyCountry) {
+        if (companyCountry != null)
+            this.companyCountry = companyCountry;
+        else
+            System.out.println("company country cannot be null");
     }
+
 
     @Override
     public String toString(){
-    return "Company: " + companyName + " " + "Phone: " + phone + " " +  "Country: " + country;
+        return "Company: " + companyName + " " + "Phone: " + companyPhone + " " +  "Country: " + companyCountry;
     }
-
     @Override
     public String shortInfo() {
-        return "Supplier: " + companyName + " (" + country + ")";
+        return "Supplier: " + companyName + " " + companyCountry;
     }
 }
